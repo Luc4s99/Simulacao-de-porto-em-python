@@ -51,16 +51,6 @@ def calculate_avg_time(queue):
         return average_time
 
 
-def remove_ships(queue):
-    id_ship = queue[0].ID
-
-    if queue[0].numberCont == 0:
-        del queue[0]
-        return id_ship
-    else:
-        return -1
-
-
 def simulation_port():
     """
     Executa a simulação de um porto
@@ -115,15 +105,30 @@ def simulation_port():
             print(f'Número de conteiners retirados na fila 4: {unload_ship(queue4)}\n', '-' * 30)
             sleep(1)
 
-        # Aqui ficara a verificação se o navio já foi descarregado, printando o tempo de espera total dele
-
+        # Verificação se o navio já foi descarregado
+        if len(queue1) != 0:
+            if queue1[0].numberCont == 0:
+                print(f'\nNavio {queue1[0].ID} totalmente descarregado, deixando a fila 1...')
+                del queue1[0]
+        if len(queue2) != 0:
+            if queue2[0].numberCont == 0:
+                print(f'\nNavio {queue2[0].ID} totalmente descarregado, deixando a fila 2...')
+                del queue2[0]
+        if len(queue3) != 0:
+            if queue3[0].numberCont == 0:
+                print(f'\nNavio {queue3[0].ID} totalmente descarregado, deixando a fila 3...')
+                del queue3[0]
+        if len(queue4) != 0:
+            if queue4[0].numberCont == 0:
+                print(f'\nNavio {queue4[0].ID} totalmente descarregado, deixando a fila 4...')
+                del queue4[0]
 
         sleep(2)
-        print(f'\nNúmero de navios na fila de atracamento 1: {len(queue1)}', '\nFila: ')
+        print('-' * 30, f'\nNúmero de navios na fila de atracamento 1: {len(queue1)}', '\nFila: ')
         for element in queue1:
             element.averageWait += 1  # Somando o tempo de espera total do navio
             print(f'{element.ID} -> ', end='')
-        print(f'Tempo médio de espera na fila 1: {calculate_avg_time(queue1):.2f} unidades de tempo')
+        print(f'\nTempo médio de espera na fila 1: {calculate_avg_time(queue1):.2f} unidades de tempo')
         print('\n')
         sleep(1)
 
@@ -131,7 +136,7 @@ def simulation_port():
         for element in queue2:
             element.averageWait += 1
             print(f'{element.ID} -> ', end='')
-        print(f'Tempo médio de espera na fila 2: {calculate_avg_time(queue2):.2f} unidades de tempo')
+        print(f'\nTempo médio de espera na fila 2: {calculate_avg_time(queue2):.2f} unidades de tempo')
         print('\n')
         sleep(1)
 
@@ -139,7 +144,7 @@ def simulation_port():
         for element in queue3:
             element.averageWait += 1
             print(f'{element.ID} -> ', end='')
-        print(f'Tempo médio de espera na fila 3: {calculate_avg_time(queue3):.2f} unidades de tempo ')
+        print(f'\nTempo médio de espera na fila 3: {calculate_avg_time(queue3):.2f} unidades de tempo ')
         print('\n')
         sleep(1)
 
@@ -147,7 +152,7 @@ def simulation_port():
         for element in queue4:
             element.averageWait += 1
             print(f'{element.ID} -> ', end='')
-        print(f'Tempo médio de espera na fila 4: {calculate_avg_time(queue4):.2f} unidades de tempo')
+        print(f'\nTempo médio de espera na fila 4: {calculate_avg_time(queue4):.2f} unidades de tempo')
         print('\n')
 
         timeUnits += 1
